@@ -1,29 +1,52 @@
-export default function initModal() {
-  const btnAbrir = document.querySelector('[data-modal="abrir"]');
-  const btnFechar = document.querySelector('[data-modal="fechar"]');
-  const btnEntrar = document.querySelector('[data-modal="entrar"]');
-  const containerModal = document.querySelector('[data-modal="container"]');
+export default class Modal {
+  constructor(btnAbrir, btnFechar, btnEntrar, containerModal) {
+    this.btnAbrir = document.querySelector(btnAbrir);
+    this.btnFechar = document.querySelector(btnFechar);
+    this.containerModal = document.querySelector(containerModal);
 
-  function toggleModal(event) {
-    event.preventDefault();
-    containerModal.classList.toggle("ativo");
+    /*
+      bind this ao callback para fazer referência
+      ao objeto da classe
+    */
+    this.eventToggleModal = this.eventToggleModal.bind(this);
+    this.cliqueForaModal = this.cliqueForaModal.bind(this);
   }
 
-  function cliqueForaModal(event) {
-    if (event.target === this) {
-      toggleModal(event);
+  // abre/fecha o modal
+  toggleModal() {
+    this.containerModal.classList.toggle("ativo");
+  }
+
+  // adiciona o evento de toggle ao modal
+  eventToggleModal(event) {
+    event.preventDefault();
+    this.toggleModal();
+  }
+
+  // fecha o modal ao clicar fora dele
+  cliqueForaModal(event) {
+    if (event.target === this.containerModal) {
+      this.toggleModal();
     }
   }
 
-  function fazerLogin(event) {
-    event.preventDefault();
-    console.log("Caaaalma, veloz!");
+  // adiciona os eventos aos elementos do modal
+  addModalEvents() {
+    this.btnAbrir.addEventListener("click", this.eventToggleModal);
+    this.btnFechar.addEventListener("click", this.eventToggleModal);
+    this.containerModal.addEventListener("click", this.cliqueForaModal);
   }
 
-  if (btnAbrir && btnFechar && btnEntrar && containerModal) {
-    btnAbrir.addEventListener("click", toggleModal);
-    btnFechar.addEventListener("click", toggleModal);
-    btnEntrar.addEventListener("click", fazerLogin);
-    containerModal.addEventListener("click", cliqueForaModal);
+  init() {
+    if (
+      this.btnAbrir &&
+      this.btnFechar &&
+      this.btnEntrar &&
+      this.containerModal
+    ) {
+      this.addModalEvents();
+    }
+
+    return this;
   }
 }
