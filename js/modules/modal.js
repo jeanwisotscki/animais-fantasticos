@@ -1,5 +1,5 @@
 export default class Modal {
-  constructor(btnAbrir, btnFechar, btnEntrar, containerModal) {
+  constructor(btnAbrir, btnFechar, containerModal) {
     this.btnAbrir = document.querySelector(btnAbrir);
     this.btnFechar = document.querySelector(btnFechar);
     this.containerModal = document.querySelector(containerModal);
@@ -38,12 +38,7 @@ export default class Modal {
   }
 
   init() {
-    if (
-      this.btnAbrir &&
-      this.btnFechar &&
-      this.btnEntrar &&
-      this.containerModal
-    ) {
+    if (this.btnAbrir && this.btnFechar && this.containerModal) {
       this.addModalEvents();
     }
 
