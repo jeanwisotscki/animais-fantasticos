@@ -34,8 +34,10 @@ export default class ScrollAnima {
 
   init() {
     if (this.sections.length) {
+      console.log("iniciou");
       this.getDistance();
       this.checkDistance();
+      console.log("iniciou 2");
       window.addEventListener("scroll", this.checkDistance);
     }
 
