@@ -24,27 +24,25 @@ export default class ScrollAnima {
   // relação ao scroll do site
   checkDistance() {
     this.distance.forEach((item) => {
-      if (window.pageYOffset > item.offset) {
-        item.classList.add("ativo");
-      } else if (item.classList.contains("ativo")) {
-        item.classList.remove("ativo");
+      if (window.scrollY > item.offset) {
+        item.element.classList.add("ativo");
+      } else if (item.element.classList.contains("ativo")) {
+        item.element.classList.remove("ativo");
       }
     });
   }
 
   init() {
     if (this.sections.length) {
-      console.log("iniciou");
       this.getDistance();
       this.checkDistance();
-      console.log("iniciou 2");
       window.addEventListener("scroll", this.checkDistance);
     }
 
     return this;
   }
 
-  // para o evento de scroll
+  // remove o evento de scroll
   destroy() {
     window.removeEventListener("scroll", this.checkDistance);
   }
