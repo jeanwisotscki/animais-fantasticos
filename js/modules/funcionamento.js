@@ -1,43 +1,42 @@
-export default function initFuncionamento() {
-  const funcionamento = document.querySelector("[data-dias]");
-  const diasSemana = funcionamento.dataset.dias.split(",").map(Number);
+export default class Funcionamento {
+  constructor(funcionamento, activeClass = "aberto") {
+    // horário de funcionamento do estabelecimento
+    this.funcionamento = document.querySelector(funcionamento);
+    this.activeClass = activeClass;
+  }
 
-  const horario = funcionamento.dataset.horario.split(",").map(Number);
+  dadosFuncionamento() {
+    this.diasSemana = this.funcionamento.dataset.dias.split(",").map(Number);
+    this.horario = this.funcionamento.dataset.horario.split(",").map(Number);
+  }
 
-  const dataAgora = new Date();
-  const diaAgora = dataAgora.getDay();
-  const horaAgora = dataAgora.getHours();
+  dadosAgora() {
+    this.dataAgora = new Date();
+    this.diaAgora = this.dataAgora.getDay();
+    this.horaAgora = this.dataAgora.getUTCHours() - 3;
+  }
 
-  const semanaAberto = diasSemana.indexOf(diaAgora) !== -1;
-  const horarioAberto = horaAgora >= horario[0] && horaAgora < horario[1];
+  estaAberto() {
+    const semanaAberto = this.diasSemana.indexOf(this.diaAgora) !== -1;
+    const horarioAberto =
+      this.horaAgora >= this.horario[0] && this.horaAgora < this.horario[1];
 
-  if (semanaAberto && horarioAberto) {
-    funcionamento.classList.add("aberto");
+    return semanaAberto && horarioAberto;
+  }
+
+  ativaAberto() {
+    if (this.estaAberto()) {
+      this.funcionamento.classList.add(this.activeClass);
+    }
+  }
+
+  init() {
+    if (this.funcionamento) {
+      this.dadosFuncionamento();
+      this.dadosAgora();
+      this.ativaAberto();
+    }
+
+    return this;
   }
 }
-
-// getTime()
-/*
-O método getTime() mostra o tempo total em
-milissegundos desde o dia 1 de janeiro de 1970.
-*/
-// agora.getTime()
-
-/* FUNÇÃO PRA CONVERTER DATA PARA DIAS
- **************************************************** */
-
-// const agora = new Date();
-// const promocao = new Date("may 13 2022 23:59:59");
-
-// function converterEmDias(time) {
-//   return time / (24 * 60 * 60 * 1000);
-// }
-
-// const diasAgora = converterEmDias(agora);
-// const diasPromocao = converterEmDias(promocao);
-
-// const faltam = diasPromocao - diasAgora;
-
-// console.log(faltam);
-// console.log(agora);
-/* ************************************************** */
