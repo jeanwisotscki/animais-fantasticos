@@ -11,7 +11,7 @@ import Funcionamento from "./modules/funcionamento.js";
 import fetchAnimais from "./modules/fetch-animais.js";
 
 // Funções de fetch
-fetchAnimais("../../animais-api.json", ".numeros-grid");
+fetchAnimais("./animais-api.json", ".numeros-grid");
 fetchBitcoin("https://blockchain.info/ticker", ".btc-preco");
 
 // classes
