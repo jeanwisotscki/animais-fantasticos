@@ -10,6 +10,8 @@ import MenuMobile from "./modules/menu-mobile.js";
 import Funcionamento from "./modules/funcionamento.js";
 import fetchAnimais from "./modules/fetch-animais.js";
 
+import SlideNav from "./modules/slide.js";
+
 // Funções de fetch
 fetchAnimais("./animais-api.json", ".numeros-grid");
 fetchBitcoin("https://blockchain.info/ticker", ".btc-preco");
@@ -48,3 +50,7 @@ menuMobile.init();
 
 const funcionamento = new Funcionamento("[data-dias]");
 funcionamento.init();
+
+const slide = new SlideNav(".slide", ".slide-wrapper");
+slide.init();
+slide.addControl(".custom-controls");
